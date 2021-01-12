@@ -9,8 +9,174 @@ Rectangle {
     width: Screen.desktopAvailableWidth
     height: Screen.desktopAvailableHeight
 
-    property string remoteDeviceName: ""
+    property bool isChinese: true
     property bool serviceFound: false
+    property string deviceName: ""
+
+    // 背景
+    Image {
+        anchors.fill: parent
+        source: "qrc:/image/bg.png"
+
+        // logo
+        Image {
+            x: 20; y: 20
+            source: "qrc:/image/logo.png"
+        }
+
+        // 调焦左旋钮
+        Image {
+            id: focus_left
+            x: 57; y: 130
+            source: "qrc:/image/left_default.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onPressed: focus_left.source = "qrc:/image/left_pressed.png"
+                onReleased: focus_left.source = "qrc:/image/left_default.png"
+                onClicked: socket.stringData = "1"
+            }
+        }
+
+        // 调焦
+        Image {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: focus_left.verticalCenter
+            source: root.isChinese ? "qrc:/image/focus-c.png" : "qrc:/image/focus-e.png"
+        }
+
+        // 调焦右旋钮
+        Image {
+            id: focus_right
+            x: 302; y: 130
+            source: "qrc:/image/right_default.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onPressed: focus_right.source = "qrc:/image/right_pressed.png"
+                onReleased: focus_right.source = "qrc:/image/right_default.png"
+                onClicked: socket.stringData = "2"
+            }
+        }
+
+        // 变倍左旋钮
+        Image {
+            id: zoom_left
+            x: 57; y: 250
+            source: "qrc:/image/left_default.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onPressed: zoom_left.source = "qrc:/image/left_pressed.png"
+                onReleased: zoom_left.source = "qrc:/image/left_default.png"
+                onClicked: socket.stringData = "3"
+            }
+        }
+
+        // 变倍
+        Image {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: zoom_left.verticalCenter
+            source: root.isChinese ? "qrc:/image/zoom-c.png" : "qrc:/image/zoom-e.png"
+        }
+
+        // 变倍右旋钮
+        Image {
+            id: zoom_right
+            x: 302; y: 250
+            source: "qrc:/image/right_default.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onPressed: zoom_right.source = "qrc:/image/right_pressed.png"
+                onReleased: zoom_right.source = "qrc:/image/right_default.png"
+                onClicked: socket.stringData = "4"
+            }
+        }
+
+        // 对比度左旋钮
+        Image {
+            id: contrast_left
+            x: 57; y: 370
+            source: "qrc:/image/left_default.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onPressed: contrast_left.source = "qrc:/image/left_pressed.png"
+                onReleased: contrast_left.source = "qrc:/image/left_default.png"
+                onClicked: socket.stringData = "5"
+            }
+        }
+
+        // 对比度
+        Image {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: contrast_left.verticalCenter
+            source: root.isChinese ? "qrc:/image/contrast-c.png" : "qrc:/image/contrast-e.png"
+        }
+
+        // 对比度右旋钮
+        Image {
+            id: contrast_right
+            x: 302; y: 370
+            source: "qrc:/image/right_default.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onPressed: contrast_right.source = "qrc:/image/right_pressed.png"
+                onReleased: contrast_right.source = "qrc:/image/right_default.png"
+                onClicked: socket.stringData = "6"
+            }
+        }
+
+        // 对准
+        Image {
+            x: 50; y: 480
+            source: root.isChinese ? "qrc:/image/align-c.png" : "qrc:/image/align-e.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: socket.stringData = "9"
+            }
+        }
+
+        // 测量
+        Image {
+            x: 210; y: 480
+            source: root.isChinese ? "qrc:/image/measure-c.png" : "qrc:/image/measure-e.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: socket.stringData = "10"
+            }
+        }
+
+        // 蓝牙状态
+        Image {
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 20
+            source: root.serviceFound ? "qrc:/image/bluetooth-ok.png" : "qrc:/image/bluetooth-notok.png"
+        }
+
+        // 语言
+        Image {
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 20
+            source: root.isChinese ? "qrc:/image/measure-e.png" : "qrc:/image/measure-c.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: root.isChinese = !root.isChinese
+            }
+        }
+
+    }
+
+    //------------------------------------------------------------
 
     // 蓝牙扫描仪
     BluetoothDiscoveryModel {
@@ -101,7 +267,7 @@ Rectangle {
 
         Text {
             id: text
-            text: "Scanning"
+            text: "设备连接中"
             font.bold: true
             font.pointSize: 20
             anchors.centerIn: parent
@@ -134,9 +300,5 @@ Rectangle {
         }
 
     }
-
-    // 弹窗
-
-    // 按钮
 
 }

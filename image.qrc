@@ -1,5 +1,24 @@
 <RCC>
     <qresource prefix="/">
-        <file>image/bluetooth.png</file>
+        <file>image/align-c.png</file>
+        <file>image/align-e.png</file>
+        <file>image/bg.png</file>
+        <file>image/bluetooth-notok.png</file>
+        <file>image/bluetooth-ok.png</file>
+        <file>image/chinese.png</file>
+        <file>image/contrast-c.png</file>
+        <file>image/contrast-e.png</file>
+        <file>image/english.png</file>
+        <file>image/focus-c.png</file>
+        <file>image/focus-e.png</file>
+        <file>image/left_default.png</file>
+        <file>image/left_pressed.png</file>
+        <file>image/logo.png</file>
+        <file>image/measure-c.png</file>
+        <file>image/measure-e.png</file>
+        <file>image/right_default.png</file>
+        <file>image/right_pressed.png</file>
+        <file>image/zoom-c.png</file>
+        <file>image/zoom-e.png</file>
     </qresource>
 </RCC>
