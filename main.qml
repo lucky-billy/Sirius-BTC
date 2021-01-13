@@ -9,168 +9,207 @@ Rectangle {
     width: Screen.desktopAvailableWidth
     height: Screen.desktopAvailableHeight
 
-    property bool isChinese: true
-    property bool serviceFound: false
-    property string deviceName: ""
+    property bool isChinese: true                               // 中文或英文
+    property bool serviceFound: false                           // 蓝牙是否连接成功
+    property string deviceName: ""                              // 蓝牙设备名称
+    property var pixel: Screen.desktopAvailableHeight / 840     // 像素标定值
+
+    Component.onCompleted: {
+        dialog.visible = false
+        btModel.running = true
+    }
 
     // 背景
     Image {
         anchors.fill: parent
         source: "qrc:/image/bg.png"
+        enabled: !btModel.running && !dialog.visible
 
         // logo
         Image {
-            x: 20; y: 20
+            x: 20*pixel; y: 20*pixel
+            width: 240*pixel; height: 80*pixel
             source: "qrc:/image/logo.png"
-        }
-
-        // 调焦左旋钮
-        Image {
-            id: focus_left
-            x: 57; y: 130
-            source: "qrc:/image/left_default.png"
-
-            MouseArea {
-                anchors.fill: parent
-                onPressed: focus_left.source = "qrc:/image/left_pressed.png"
-                onReleased: focus_left.source = "qrc:/image/left_default.png"
-                onClicked: socket.stringData = "1"
-            }
         }
 
         // 调焦
         Image {
+            width: root.isChinese ? 125*pixel : 165*pixel; height: 58*pixel
+            anchors.top: parent.top
+            anchors.topMargin: 150*pixel
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: focus_left.verticalCenter
             source: root.isChinese ? "qrc:/image/focus-c.png" : "qrc:/image/focus-e.png"
         }
 
-        // 调焦右旋钮
-        Image {
-            id: focus_right
-            x: 302; y: 130
-            source: "qrc:/image/right_default.png"
+        // 调焦按钮组
+        Rectangle {
+            width: 330*pixel; height: 60*pixel
+            anchors.top: parent.top
+            anchors.topMargin: 210*pixel
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: "transparent"
 
-            MouseArea {
-                anchors.fill: parent
-                onPressed: focus_right.source = "qrc:/image/right_pressed.png"
-                onReleased: focus_right.source = "qrc:/image/right_default.png"
-                onClicked: socket.stringData = "2"
+            // 调焦左旋钮
+            Image {
+                id: focus_left
+                width: 160*pixel; height: 60*pixel
+                anchors.top: parent.top
+                anchors.left: parent.left
+                source: "qrc:/image/down-default.png"
+
+                MouseArea {
+                    anchors.fill: parent
+                    onPressed: focus_left.source = "qrc:/image/down-pressed.png"
+                    onReleased: focus_left.source = "qrc:/image/down-default.png"
+                    onClicked: socket.stringData = "1"
+                }
             }
-        }
 
-        // 变倍左旋钮
-        Image {
-            id: zoom_left
-            x: 57; y: 250
-            source: "qrc:/image/left_default.png"
+            // 调焦右旋钮
+            Image {
+                id: focus_right
+                width: 160*pixel; height: 60*pixel
+                anchors.top: parent.top
+                anchors.right: parent.right
+                source: "qrc:/image/up-default.png"
 
-            MouseArea {
-                anchors.fill: parent
-                onPressed: zoom_left.source = "qrc:/image/left_pressed.png"
-                onReleased: zoom_left.source = "qrc:/image/left_default.png"
-                onClicked: socket.stringData = "3"
+                MouseArea {
+                    anchors.fill: parent
+                    onPressed: focus_right.source = "qrc:/image/up-pressed.png"
+                    onReleased: focus_right.source = "qrc:/image/up-default.png"
+                    onClicked: socket.stringData = "2"
+                }
             }
         }
 
         // 变倍
         Image {
+            width: root.isChinese ? 126*pixel : 161*pixel; height: 58*pixel
+            anchors.top: parent.top
+            anchors.topMargin: 310*pixel
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: zoom_left.verticalCenter
             source: root.isChinese ? "qrc:/image/zoom-c.png" : "qrc:/image/zoom-e.png"
         }
 
-        // 变倍右旋钮
-        Image {
-            id: zoom_right
-            x: 302; y: 250
-            source: "qrc:/image/right_default.png"
+        // 变倍按钮组
+        Rectangle {
+            width: 330*pixel; height: 60*pixel
+            anchors.top: parent.top
+            anchors.topMargin: 370*pixel
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: "transparent"
 
-            MouseArea {
-                anchors.fill: parent
-                onPressed: zoom_right.source = "qrc:/image/right_pressed.png"
-                onReleased: zoom_right.source = "qrc:/image/right_default.png"
-                onClicked: socket.stringData = "4"
+            // 变倍左旋钮
+            Image {
+                id: zoom_left
+                width: 160*pixel; height: 60*pixel
+                anchors.top: parent.top
+                anchors.left: parent.left
+                source: "qrc:/image/down-default.png"
+
+                MouseArea {
+                    anchors.fill: parent
+                    onPressed: zoom_left.source = "qrc:/image/down-pressed.png"
+                    onReleased: zoom_left.source = "qrc:/image/down-default.png"
+                    onClicked: socket.stringData = "3"
+                }
             }
-        }
 
-        // 对比度左旋钮
-        Image {
-            id: contrast_left
-            x: 57; y: 370
-            source: "qrc:/image/left_default.png"
+            // 变倍右旋钮
+            Image {
+                id: zoom_right
+                width: 160*pixel; height: 60*pixel
+                anchors.top: parent.top
+                anchors.right: parent.right
+                source: "qrc:/image/up-default.png"
 
-            MouseArea {
-                anchors.fill: parent
-                onPressed: contrast_left.source = "qrc:/image/left_pressed.png"
-                onReleased: contrast_left.source = "qrc:/image/left_default.png"
-                onClicked: socket.stringData = "5"
+                MouseArea {
+                    anchors.fill: parent
+                    onPressed: zoom_right.source = "qrc:/image/up-pressed.png"
+                    onReleased: zoom_right.source = "qrc:/image/up-default.png"
+                    onClicked: socket.stringData = "4"
+                }
             }
         }
 
         // 对比度
         Image {
+            id: contrast
+            width: 200*pixel; height: 60*pixel
+            anchors.top: parent.top
+            anchors.topMargin: 500*pixel
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: contrast_left.verticalCenter
-            source: root.isChinese ? "qrc:/image/contrast-c.png" : "qrc:/image/contrast-e.png"
-        }
-
-        // 对比度右旋钮
-        Image {
-            id: contrast_right
-            x: 302; y: 370
-            source: "qrc:/image/right_default.png"
+            source: root.isChinese ? "qrc:/image/contrast_c-default.png" : "qrc:/image/contrast_e-default.png"
 
             MouseArea {
                 anchors.fill: parent
-                onPressed: contrast_right.source = "qrc:/image/right_pressed.png"
-                onReleased: contrast_right.source = "qrc:/image/right_default.png"
-                onClicked: socket.stringData = "6"
+                onPressed: contrast.source = root.isChinese ? "qrc:/image/contrast_c-pressed.png" : "qrc:/image/contrast_e-pressed.png"
+                onReleased: contrast.source = root.isChinese ? "qrc:/image/contrast_c-default.png" : "qrc:/image/contrast_e-default.png"
+                onClicked: socket.stringData = "7"
             }
         }
 
         // 对准
         Image {
-            x: 50; y: 480
-            source: root.isChinese ? "qrc:/image/align-c.png" : "qrc:/image/align-e.png"
+            id: align
+            width: 200*pixel; height: 60*pixel
+            anchors.top: parent.top
+            anchors.topMargin: 600*pixel
+            anchors.horizontalCenter: parent.horizontalCenter
+            source: root.isChinese ? "qrc:/image/align_c-default.png" : "qrc:/image/align_e-default.png"
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: socket.stringData = "9"
+                onPressed: align.source = root.isChinese ? "qrc:/image/align_c-pressed.png" : "qrc:/image/align_e-pressed.png"
+                onReleased: align.source = root.isChinese ? "qrc:/image/align_c-default.png" : "qrc:/image/align_e-default.png"
+                onClicked: socket.stringData = "8"
             }
         }
 
         // 测量
         Image {
-            x: 210; y: 480
-            source: root.isChinese ? "qrc:/image/measure-c.png" : "qrc:/image/measure-e.png"
+            id: measure
+            width: 200*pixel; height: 60*pixel
+            anchors.top: parent.top
+            anchors.topMargin: 700*pixel
+            anchors.horizontalCenter: parent.horizontalCenter
+            source: root.isChinese ? "qrc:/image/measure_c-default.png" : "qrc:/image/measure_e-default.png"
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: socket.stringData = "10"
+                onPressed: measure.source = root.isChinese ? "qrc:/image/measure_c-pressed.png" : "qrc:/image/measure_e-pressed.png"
+                onReleased: measure.source = root.isChinese ? "qrc:/image/measure_c-default.png" : "qrc:/image/measure_e-default.png"
+                onClicked: socket.stringData = "9"
             }
         }
 
         // 蓝牙状态
         Image {
+            width: root.serviceFound ? 30*pixel : 40*pixel; height: 40*pixel
             anchors.left: parent.left
-            anchors.leftMargin: 20
+            anchors.leftMargin: 20*pixel
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
+            anchors.bottomMargin: 20*pixel
             source: root.serviceFound ? "qrc:/image/bluetooth-ok.png" : "qrc:/image/bluetooth-notok.png"
         }
 
         // 语言
         Image {
+            width: 50*pixel; height: 50*pixel
             anchors.right: parent.right
-            anchors.rightMargin: 20
+            anchors.rightMargin: 20*pixel
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
-            source: root.isChinese ? "qrc:/image/measure-e.png" : "qrc:/image/measure-c.png"
+            anchors.bottomMargin: 20*pixel
+            source: root.isChinese ? "qrc:/image/english.png" : "qrc:/image/chinese.png"
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: root.isChinese = !root.isChinese
+                onClicked: {
+                    root.isChinese = !root.isChinese
+                    contrast.source = root.isChinese ? "qrc:/image/contrast_c-default.png" : "qrc:/image/contrast_e-default.png"
+                    align.source = root.isChinese ? "qrc:/image/align_c-default.png" : "qrc:/image/align_e-default.png"
+                    measure.source = root.isChinese ? "qrc:/image/measure_c-default.png" : "qrc:/image/measure_e-default.png"
+                }
             }
         }
 
@@ -181,31 +220,20 @@ Rectangle {
     // 蓝牙扫描仪
     BluetoothDiscoveryModel {
         id: btModel
-        running: true
         discoveryMode: BluetoothDiscoveryModel.MinimalServiceDiscovery
         uuidFilter: "{00001101-0000-1000-8000-00805f9b34fb}"
 
         onRunningChanged : {
             if ( !btModel.running && !serviceFound ) {
-                console.log("No service found.\nPlease start server and restart app.")
+                dialog.source = "qrc:/image/error_no-service.png"
+                dialog.visible = true;
             }
         }
 
         onErrorChanged: {
-            switch (btModel.error) {
-            case BluetoothDiscoveryModel.NoError: break;
-            case BluetoothDiscoveryModel.InputOutputError:
-                console.log("Error: Bluetooth I/O Error")
-                break;
-            case BluetoothDiscoveryModel.PoweredOffError:
-                console.log("Error: Bluetooth device not turned on")
-                break;
-            case BluetoothDiscoveryModel.InvalidBluetoothAdapterError:
-                console.log("Error: Invalid Bluetooth Adapter Error")
-                break;
-            case BluetoothDiscoveryModel.UnknownError:
-                console.log("Error: Unknown Error")
-                break;
+            if ( !btModel.running && btModel.error != BluetoothDiscoveryModel.NoError ) {
+                dialog.source = "qrc:/image/error_discovery-failed.png"
+                dialog.visible = true;
             }
         }
 
@@ -254,51 +282,53 @@ Rectangle {
 
     //------------------------------------------------------------
 
-    // 搜索中
+    // 设备连接中
     Rectangle {
-        id: busy
-        width: root.width * 0.7;
-        height: text.height*1.2;
-        anchors.top: root.top;
-        anchors.horizontalCenter: parent.horizontalCenter
+        width: root.width * 0.7; height: text.height*1.2;
+        anchors.centerIn: parent
         radius: 5
         color: "#1c56f3"
         visible: btModel.running
 
         Text {
             id: text
-            text: "设备连接中"
+            text: "设备连接中..."
             font.bold: true
             font.pointSize: 20
             anchors.centerIn: parent
         }
 
         SequentialAnimation on color {
-            id: busyThrobber
             ColorAnimation { easing.type: Easing.InOutSine; from: "#1c56f3"; to: "white"; duration: 1000; }
             ColorAnimation { easing.type: Easing.InOutSine; to: "#1c56f3"; from: "white"; duration: 1000 }
             loops: Animation.Infinite
         }
     }
 
-    // 透明遮罩
-    Rectangle {
-        id: mask
-        z: 1
-        anchors.fill: parent
-        color: "transparent"
+    // 错误弹窗
+    Image {
+        id: dialog
+        width: 330*pixel; height: 610*pixel
+        anchors.top: parent.top
+        anchors.topMargin: 150*pixel
+        anchors.horizontalCenter: parent.horizontalCenter
+        visible: false
 
-        MouseArea{
-            anchors.fill: parent;
-            propagateComposedEvents: true   // 允许事件穿透
-            hoverEnabled: true              // 处理鼠标悬浮
+        // 确认
+        Image {
+            id: sure
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 50*pixel
+            anchors.horizontalCenter: parent.horizontalCenter
+            source: "qrc:/image/sure-default.png"
 
-            onClicked: {
-                mouse.accepted = false      // 不处理此事件，传递给下一层
-                mask.visible = false
+            MouseArea {
+                anchors.fill: parent
+                onPressed: sure.source = "qrc:/image/sure-pressed.png"
+                onReleased: sure.source = "qrc:/image/sure-default.png"
+                onClicked: mainwindow.close()
             }
         }
-
     }
 
 }
