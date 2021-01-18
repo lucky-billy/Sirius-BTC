@@ -11,7 +11,7 @@ Rectangle {
 
     property bool isChinese: true                               // 中文或英文
     property bool serviceFound: false                           // 蓝牙是否连接成功
-    property string deviceName: ""                              // 蓝牙设备名称
+    property string remoteDeviceName: ""                        // 蓝牙设备名称
     property var pixel: Screen.desktopAvailableHeight / 840     // 像素标定值
 
     Component.onCompleted: {
@@ -185,7 +185,7 @@ Rectangle {
 
         // 蓝牙状态
         Image {
-            width: root.serviceFound ? 30*pixel : 40*pixel; height: 40*pixel
+            width: 40*pixel; height: 40*pixel
             anchors.left: parent.left
             anchors.leftMargin: 20*pixel
             anchors.bottom: parent.bottom
@@ -225,15 +225,15 @@ Rectangle {
 
         onRunningChanged : {
             if ( !btModel.running && !serviceFound ) {
-                dialog.source = "qrc:/image/error_no-service.png"
-                dialog.visible = true;
+                dialog.source = root.isChinese ? "qrc:/image/error_c_no-service.png" : "qrc:/image/error_e_no-service.png"
+                dialog.visible = true
             }
         }
 
         onErrorChanged: {
             if ( !btModel.running && btModel.error != BluetoothDiscoveryModel.NoError ) {
-                dialog.source = "qrc:/image/error_discovery-failed.png"
-                dialog.visible = true;
+                dialog.source = root.isChinese ? "qrc:/image/error_c_discovery-failed.png" : "qrc:/image/error_e_discovery-failed.png"
+                dialog.visible = true
             }
         }
 
@@ -246,10 +246,11 @@ Rectangle {
                         service.deviceName + ", serviceName: " + service.serviceName + ", serviceUuid: " + service.serviceUuid)
 
             if ( service.deviceAddress == "00:20:08:00:26:76" ) {
+                console.log("BluetoothDiscoveryModel - service found !")
                 serviceFound = true
                 remoteDeviceName = service.deviceName
                 socket.setService(service)
-                btModel.running = false
+                console.log("BluetoothDiscoveryModel - connect to service successfully !")
             }
         }
 
@@ -264,7 +265,11 @@ Rectangle {
         onSocketStateChanged: {
             switch (socketState) {
             case BluetoothSocket.NoServiceSet: console.log("BluetoothSocket - NoServiceSet" ); break;
-            case BluetoothSocket.Unconnected: console.log("BluetoothSocket - Unconnected" ); break;
+            case BluetoothSocket.Unconnected:
+                console.log("BluetoothSocket - Unconnected" );
+                dialog.source = root.isChinese ? "qrc:/image/error_c_disconnect.png" : "qrc:/image/error_e_disconnect.png"
+                dialog.visible = true
+                break;
             case BluetoothSocket.ServiceLookup: console.log("BluetoothSocket - ServiceLookup" ); break;
             case BluetoothSocket.Connecting: console.log("BluetoothSocket - Connecting" ); break;
             case BluetoothSocket.Connected: console.log("BluetoothSocket - Connected" ); break;
@@ -314,18 +319,18 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         visible: false
 
-        // 确认
+        // 确认按钮
         Image {
             id: sure
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 50*pixel
             anchors.horizontalCenter: parent.horizontalCenter
-            source: "qrc:/image/sure-default.png"
+            source: root.isChinese ? "qrc:/image/sure_c-default.png" : "qrc:/image/sure_e-default.png"
 
             MouseArea {
                 anchors.fill: parent
-                onPressed: sure.source = "qrc:/image/sure-pressed.png"
-                onReleased: sure.source = "qrc:/image/sure-default.png"
+                onPressed: sure.source = root.isChinese ? "qrc:/image/sure_c-pressed.png" : "qrc:/image/sure_e-pressed.png"
+                onReleased: sure.source = root.isChinese ? "qrc:/image/sure_c-default.png" : "qrc:/image/sure_e-default.png"
                 onClicked: mainwindow.close()
             }
         }

@@ -20,15 +20,21 @@
         <file>image/contrast_e-pressed.png</file>
         <file>image/down-default.png</file>
         <file>image/down-pressed.png</file>
-        <file>image/error_discovery-failed.png</file>
-        <file>image/error_no-service.png</file>
         <file>image/measure_c-default.png</file>
         <file>image/measure_c-pressed.png</file>
         <file>image/measure_e-default.png</file>
         <file>image/measure_e-pressed.png</file>
-        <file>image/sure-default.png</file>
-        <file>image/sure-pressed.png</file>
         <file>image/up-default.png</file>
         <file>image/up-pressed.png</file>
+        <file>image/error_c_discovery-failed.png</file>
+        <file>image/error_c_no-service.png</file>
+        <file>image/error_e_discovery-failed.png</file>
+        <file>image/error_e_no-service.png</file>
+        <file>image/sure_c-default.png</file>
+        <file>image/sure_c-pressed.png</file>
+        <file>image/sure_e-default.png</file>
+        <file>image/sure_e-pressed.png</file>
+        <file>image/error_c_disconnect.png</file>
+        <file>image/error_e_disconnect.png</file>
     </qresource>
 </RCC>
