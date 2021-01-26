@@ -59,9 +59,14 @@ Rectangle {
 
                 MouseArea {
                     anchors.fill: parent
-                    onPressed: focus_left.source = "qrc:/image/down-pressed.png"
-                    onReleased: focus_left.source = "qrc:/image/down-default.png"
-                    onClicked: socket.stringData = "1"
+                    onPressed: {
+                        focus_left.source = "qrc:/image/down-pressed.png"
+                        socket.stringData = "1"
+                    }
+                    onReleased: {
+                        focus_left.source = "qrc:/image/down-default.png"
+                        socket.stringData = "2"
+                    }
                 }
             }
 
@@ -75,9 +80,14 @@ Rectangle {
 
                 MouseArea {
                     anchors.fill: parent
-                    onPressed: focus_right.source = "qrc:/image/up-pressed.png"
-                    onReleased: focus_right.source = "qrc:/image/up-default.png"
-                    onClicked: socket.stringData = "2"
+                    onPressed: {
+                        focus_right.source = "qrc:/image/up-pressed.png"
+                        socket.stringData = "3"
+                    }
+                    onReleased: {
+                        focus_right.source = "qrc:/image/up-default.png"
+                        socket.stringData = "4"
+                    }
                 }
             }
         }
@@ -109,9 +119,14 @@ Rectangle {
 
                 MouseArea {
                     anchors.fill: parent
-                    onPressed: zoom_left.source = "qrc:/image/down-pressed.png"
-                    onReleased: zoom_left.source = "qrc:/image/down-default.png"
-                    onClicked: socket.stringData = "3"
+                    onPressed: {
+                        zoom_left.source = "qrc:/image/down-pressed.png"
+                        socket.stringData = "5"
+                    }
+                    onReleased: {
+                        zoom_left.source = "qrc:/image/down-default.png"
+                        socket.stringData = "6"
+                    }
                 }
             }
 
@@ -125,9 +140,14 @@ Rectangle {
 
                 MouseArea {
                     anchors.fill: parent
-                    onPressed: zoom_right.source = "qrc:/image/up-pressed.png"
-                    onReleased: zoom_right.source = "qrc:/image/up-default.png"
-                    onClicked: socket.stringData = "4"
+                    onPressed: {
+                        zoom_right.source = "qrc:/image/up-pressed.png"
+                        socket.stringData = "7"
+                    }
+                    onReleased: {
+                        zoom_right.source = "qrc:/image/up-default.png"
+                        socket.stringData = "8"
+                    }
                 }
             }
         }
@@ -145,7 +165,7 @@ Rectangle {
                 anchors.fill: parent
                 onPressed: contrast.source = root.isChinese ? "qrc:/image/contrast_c-pressed.png" : "qrc:/image/contrast_e-pressed.png"
                 onReleased: contrast.source = root.isChinese ? "qrc:/image/contrast_c-default.png" : "qrc:/image/contrast_e-default.png"
-                onClicked: socket.stringData = "7"
+                onClicked: socket.stringData = "a"
             }
         }
 
@@ -162,7 +182,7 @@ Rectangle {
                 anchors.fill: parent
                 onPressed: align.source = root.isChinese ? "qrc:/image/align_c-pressed.png" : "qrc:/image/align_e-pressed.png"
                 onReleased: align.source = root.isChinese ? "qrc:/image/align_c-default.png" : "qrc:/image/align_e-default.png"
-                onClicked: socket.stringData = "8"
+                onClicked: socket.stringData = "b"
             }
         }
 
@@ -179,7 +199,7 @@ Rectangle {
                 anchors.fill: parent
                 onPressed: measure.source = root.isChinese ? "qrc:/image/measure_c-pressed.png" : "qrc:/image/measure_e-pressed.png"
                 onReleased: measure.source = root.isChinese ? "qrc:/image/measure_c-default.png" : "qrc:/image/measure_e-default.png"
-                onClicked: socket.stringData = "9"
+                onClicked: socket.stringData = "c"
             }
         }
 
