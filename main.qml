@@ -14,16 +14,17 @@ Rectangle {
     property string remoteDeviceName: ""                        // 蓝牙设备名称
     property var pixel: Screen.desktopAvailableHeight / 840     // 像素标定值
 
+    // 初始化
     Component.onCompleted: {
-        dialog.visible = false
-        btModel.running = true
+        dialog.visible = false  // 隐藏弹窗
+        btModel.running = true  // 运行蓝牙服务
     }
 
     // 背景
     Image {
         anchors.fill: parent
         source: "qrc:/image/bg.png"
-        enabled: !btModel.running && !dialog.visible
+        enabled: !btModel.running && !dialog.visible && !messageBox.visible
 
         // logo
         Image {
@@ -55,18 +56,14 @@ Rectangle {
                 width: 160*pixel; height: 60*pixel
                 anchors.top: parent.top
                 anchors.left: parent.left
-                source: "qrc:/image/down-default.png"
+                source: focus_leftArea.containsPress ? "qrc:/image/down-pressed.png" : "qrc:/image/down-default.png"
 
                 MouseArea {
+                    id: focus_leftArea
                     anchors.fill: parent
-                    onPressed: {
-                        focus_left.source = "qrc:/image/down-pressed.png"
-                        socket.stringData = "1"
-                    }
-                    onReleased: {
-                        focus_left.source = "qrc:/image/down-default.png"
-                        socket.stringData = "2"
-                    }
+                    hoverEnabled: true
+                    onPressed: socket.stringData = "1"
+                    onReleased: socket.stringData = "2"
                 }
             }
 
@@ -76,18 +73,14 @@ Rectangle {
                 width: 160*pixel; height: 60*pixel
                 anchors.top: parent.top
                 anchors.right: parent.right
-                source: "qrc:/image/up-default.png"
+                source: focus_rightArea.containsPress ? "qrc:/image/up-pressed.png" : "qrc:/image/up-default.png"
 
                 MouseArea {
+                    id: focus_rightArea
                     anchors.fill: parent
-                    onPressed: {
-                        focus_right.source = "qrc:/image/up-pressed.png"
-                        socket.stringData = "3"
-                    }
-                    onReleased: {
-                        focus_right.source = "qrc:/image/up-default.png"
-                        socket.stringData = "4"
-                    }
+                    hoverEnabled: true
+                    onPressed: socket.stringData = "3"
+                    onReleased: socket.stringData = "4"
                 }
             }
         }
@@ -115,18 +108,14 @@ Rectangle {
                 width: 160*pixel; height: 60*pixel
                 anchors.top: parent.top
                 anchors.left: parent.left
-                source: "qrc:/image/down-default.png"
+                source: zoom_leftArea.containsPress ? "qrc:/image/down-pressed.png" : "qrc:/image/down-default.png"
 
                 MouseArea {
+                    id: zoom_leftArea
                     anchors.fill: parent
-                    onPressed: {
-                        zoom_left.source = "qrc:/image/down-pressed.png"
-                        socket.stringData = "5"
-                    }
-                    onReleased: {
-                        zoom_left.source = "qrc:/image/down-default.png"
-                        socket.stringData = "6"
-                    }
+                    hoverEnabled: true
+                    onPressed: socket.stringData = "5"
+                    onReleased: socket.stringData = "6"
                 }
             }
 
@@ -136,18 +125,14 @@ Rectangle {
                 width: 160*pixel; height: 60*pixel
                 anchors.top: parent.top
                 anchors.right: parent.right
-                source: "qrc:/image/up-default.png"
+                source: zoom_rightArea.containsPress ? "qrc:/image/up-pressed.png" : "qrc:/image/up-default.png"
 
                 MouseArea {
+                    id: zoom_rightArea
                     anchors.fill: parent
-                    onPressed: {
-                        zoom_right.source = "qrc:/image/up-pressed.png"
-                        socket.stringData = "7"
-                    }
-                    onReleased: {
-                        zoom_right.source = "qrc:/image/up-default.png"
-                        socket.stringData = "8"
-                    }
+                    hoverEnabled: true
+                    onPressed: socket.stringData = "7"
+                    onReleased: socket.stringData = "8"
                 }
             }
         }
@@ -300,8 +285,22 @@ Rectangle {
         }
 
         onStringDataChanged: {
-            var data = remoteDeviceName + ": " + socket.stringData;
-            console.log("Received data - " + data);
+            var data = socket.stringData;
+//            console.log("Received data - " + remoteDeviceName + ": " + data);
+
+            if ( data === "FL\r\n" ) {
+                // 调焦左限位已触发
+            } else if ( data === "FR\r\n" ) {
+                // 调焦右限位已触发
+            } else if ( data === "ZL\r\n" ) {
+                // 变倍左限位已触发
+            } else if ( data === "ZR\r\n" ) {
+                // 变倍右限位已触发
+            }
+
+            // 电机到达极限位置
+            messageBox.source = root.isChinese ? "qrc:/image/error_c-limit.png" : "qrc:/image/error_e-limit.png"
+            messageBox.visible = true
         }
     }
 
@@ -345,13 +344,41 @@ Rectangle {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 50*pixel
             anchors.horizontalCenter: parent.horizontalCenter
-            source: root.isChinese ? "qrc:/image/sure_c-default.png" : "qrc:/image/sure_e-default.png"
+            source: sureArea.containsPress ? (root.isChinese ? "qrc:/image/sure_c-pressed.png" : "qrc:/image/sure_e-pressed.png")
+                                           : (root.isChinese ? "qrc:/image/sure_c-default.png" : "qrc:/image/sure_e-default.png")
 
             MouseArea {
+                id: sureArea
                 anchors.fill: parent
-                onPressed: sure.source = root.isChinese ? "qrc:/image/sure_c-pressed.png" : "qrc:/image/sure_e-pressed.png"
-                onReleased: sure.source = root.isChinese ? "qrc:/image/sure_c-default.png" : "qrc:/image/sure_e-default.png"
+                hoverEnabled: true
                 onClicked: mainwindow.close()
+            }
+        }
+    }
+
+    // 提示弹窗
+    Image {
+        id: messageBox
+        width: 330*pixel; height: 610*pixel
+        anchors.top: parent.top
+        anchors.topMargin: 150*pixel
+        anchors.horizontalCenter: parent.horizontalCenter
+        visible: false
+
+        // 确认按钮
+        Image {
+            id: sure2
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 50*pixel
+            anchors.horizontalCenter: parent.horizontalCenter
+            source: sure2Area.containsPress ? (root.isChinese ? "qrc:/image/sure_c-pressed.png" : "qrc:/image/sure_e-pressed.png")
+                                            : (root.isChinese ? "qrc:/image/sure_c-default.png" : "qrc:/image/sure_e-default.png")
+
+            MouseArea {
+                id: sure2Area
+                anchors.fill: parent
+                hoverEnabled: true
+                onClicked: messageBox.visible = false
             }
         }
     }
