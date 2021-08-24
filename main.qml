@@ -16,8 +16,9 @@ Rectangle {
 
     // 初始化
     Component.onCompleted: {
-        dialog.visible = false  // 隐藏弹窗
-        btModel.running = true  // 运行蓝牙服务
+        dialog.visible = false          // 隐藏弹窗
+        messageBox.visible = false      // 隐藏提示弹窗
+        btModel.running = true          // 运行蓝牙服务
     }
 
     // 背景
@@ -35,9 +36,9 @@ Rectangle {
 
         // 调焦
         Image {
-            width: root.isChinese ? 125*pixel : 165*pixel; height: 58*pixel
+            width: root.isChinese ? 101*pixel : 133*pixel; height: 46*pixel
             anchors.top: parent.top
-            anchors.topMargin: 150*pixel
+            anchors.topMargin: 120*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             source: root.isChinese ? "qrc:/image/focus-c.png" : "qrc:/image/focus-e.png"
         }
@@ -46,7 +47,7 @@ Rectangle {
         Rectangle {
             width: 330*pixel; height: 60*pixel
             anchors.top: parent.top
-            anchors.topMargin: 210*pixel
+            anchors.topMargin: 170*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             color: "transparent"
 
@@ -62,8 +63,8 @@ Rectangle {
                     id: focus_leftArea
                     anchors.fill: parent
                     hoverEnabled: true
-                    onPressed: socket.stringData = "1"
-                    onReleased: socket.stringData = "2"
+                    onPressed: socket.stringData = "a"
+                    onReleased: socket.stringData = "b"
                 }
             }
 
@@ -79,17 +80,17 @@ Rectangle {
                     id: focus_rightArea
                     anchors.fill: parent
                     hoverEnabled: true
-                    onPressed: socket.stringData = "3"
-                    onReleased: socket.stringData = "4"
+                    onPressed: socket.stringData = "c"
+                    onReleased: socket.stringData = "d"
                 }
             }
         }
 
         // 变倍
         Image {
-            width: root.isChinese ? 126*pixel : 161*pixel; height: 58*pixel
+            width: root.isChinese ? 101*pixel : 128*pixel; height: 46*pixel
             anchors.top: parent.top
-            anchors.topMargin: 310*pixel
+            anchors.topMargin: 250*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             source: root.isChinese ? "qrc:/image/zoom-c.png" : "qrc:/image/zoom-e.png"
         }
@@ -98,7 +99,7 @@ Rectangle {
         Rectangle {
             width: 330*pixel; height: 60*pixel
             anchors.top: parent.top
-            anchors.topMargin: 370*pixel
+            anchors.topMargin: 300*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             color: "transparent"
 
@@ -114,8 +115,8 @@ Rectangle {
                     id: zoom_leftArea
                     anchors.fill: parent
                     hoverEnabled: true
-                    onPressed: socket.stringData = "5"
-                    onReleased: socket.stringData = "6"
+                    onPressed: socket.stringData = "e"
+                    onReleased: socket.stringData = "f"
                 }
             }
 
@@ -131,26 +132,113 @@ Rectangle {
                     id: zoom_rightArea
                     anchors.fill: parent
                     hoverEnabled: true
-                    onPressed: socket.stringData = "7"
-                    onReleased: socket.stringData = "8"
+                    onPressed: socket.stringData = "g"
+                    onReleased: socket.stringData = "h"
+                }
+            }
+        }
+
+        // 亮度
+        Image {
+            width: root.isChinese ? 101*pixel : 252*pixel; height: 46*pixel
+            anchors.top: parent.top
+            anchors.topMargin: 380*pixel
+            anchors.horizontalCenter: parent.horizontalCenter
+            source: root.isChinese ? "qrc:/image/brightness-c.png" : "qrc:/image/brightness-e.png"
+        }
+
+        // 亮度钮组
+        Rectangle {
+            width: 330*pixel; height: 60*pixel
+            anchors.top: parent.top
+            anchors.topMargin: 430*pixel
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: "transparent"
+
+            // 亮度左旋钮
+            Image {
+                id: brightness_left
+                width: 160*pixel; height: 60*pixel
+                anchors.top: parent.top
+                anchors.left: parent.left
+                source: zoom_leftArea.containsPress ? "qrc:/image/down-pressed.png" : "qrc:/image/down-default.png"
+
+                MouseArea {
+                    id: brightness_leftArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onPressed: socket.stringData = "i"
+                    onReleased: socket.stringData = "j"
+                }
+            }
+
+            // 亮度右旋钮
+            Image {
+                id: brightness_right
+                width: 160*pixel; height: 60*pixel
+                anchors.top: parent.top
+                anchors.right: parent.right
+                source: zoom_rightArea.containsPress ? "qrc:/image/up-pressed.png" : "qrc:/image/up-default.png"
+
+                MouseArea {
+                    id: brightness_rightArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onPressed: socket.stringData = "k"
+                    onReleased: socket.stringData = "l"
                 }
             }
         }
 
         // 对比度
         Image {
-            id: contrast
-            width: 200*pixel; height: 60*pixel
+            width: root.isChinese ? 139*pixel : 217*pixel; height: 46*pixel
             anchors.top: parent.top
-            anchors.topMargin: 500*pixel
+            anchors.topMargin: 510*pixel
             anchors.horizontalCenter: parent.horizontalCenter
-            source: root.isChinese ? "qrc:/image/contrast_c-default.png" : "qrc:/image/contrast_e-default.png"
+            source: root.isChinese ? "qrc:/image/contrast-c.png" : "qrc:/image/contrast-e.png"
+        }
 
-            MouseArea {
-                anchors.fill: parent
-                onPressed: contrast.source = root.isChinese ? "qrc:/image/contrast_c-pressed.png" : "qrc:/image/contrast_e-pressed.png"
-                onReleased: contrast.source = root.isChinese ? "qrc:/image/contrast_c-default.png" : "qrc:/image/contrast_e-default.png"
-                onClicked: socket.stringData = "a"
+        // 对比度钮组
+        Rectangle {
+            width: 330*pixel; height: 60*pixel
+            anchors.top: parent.top
+            anchors.topMargin: 560*pixel
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: "transparent"
+
+            // 对比度左旋钮
+            Image {
+                id: contrast_left
+                width: 160*pixel; height: 60*pixel
+                anchors.top: parent.top
+                anchors.left: parent.left
+                source: zoom_leftArea.containsPress ? "qrc:/image/down-pressed.png" : "qrc:/image/down-default.png"
+
+                MouseArea {
+                    id: contrast_leftArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onPressed: socket.stringData = "m"
+                    onReleased: socket.stringData = "n"
+                }
+            }
+
+            // 对比度右旋钮
+            Image {
+                id: contrast_right
+                width: 160*pixel; height: 60*pixel
+                anchors.top: parent.top
+                anchors.right: parent.right
+                source: zoom_rightArea.containsPress ? "qrc:/image/up-pressed.png" : "qrc:/image/up-default.png"
+
+                MouseArea {
+                    id: contrast_rightArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onPressed: socket.stringData = "o"
+                    onReleased: socket.stringData = "p"
+                }
             }
         }
 
@@ -159,7 +247,7 @@ Rectangle {
             id: align
             width: 200*pixel; height: 60*pixel
             anchors.top: parent.top
-            anchors.topMargin: 600*pixel
+            anchors.topMargin: 650*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             source: root.isChinese ? "qrc:/image/align_c-default.png" : "qrc:/image/align_e-default.png"
 
@@ -167,7 +255,7 @@ Rectangle {
                 anchors.fill: parent
                 onPressed: align.source = root.isChinese ? "qrc:/image/align_c-pressed.png" : "qrc:/image/align_e-pressed.png"
                 onReleased: align.source = root.isChinese ? "qrc:/image/align_c-default.png" : "qrc:/image/align_e-default.png"
-                onClicked: socket.stringData = "b"
+                onClicked: socket.stringData = "q"
             }
         }
 
@@ -176,7 +264,7 @@ Rectangle {
             id: measure
             width: 200*pixel; height: 60*pixel
             anchors.top: parent.top
-            anchors.topMargin: 700*pixel
+            anchors.topMargin: 730*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             source: root.isChinese ? "qrc:/image/measure_c-default.png" : "qrc:/image/measure_e-default.png"
 
@@ -184,7 +272,7 @@ Rectangle {
                 anchors.fill: parent
                 onPressed: measure.source = root.isChinese ? "qrc:/image/measure_c-pressed.png" : "qrc:/image/measure_e-pressed.png"
                 onReleased: measure.source = root.isChinese ? "qrc:/image/measure_c-default.png" : "qrc:/image/measure_e-default.png"
-                onClicked: socket.stringData = "c"
+                onClicked: socket.stringData = "r"
             }
         }
 
@@ -211,7 +299,6 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     root.isChinese = !root.isChinese
-                    contrast.source = root.isChinese ? "qrc:/image/contrast_c-default.png" : "qrc:/image/contrast_e-default.png"
                     align.source = root.isChinese ? "qrc:/image/align_c-default.png" : "qrc:/image/align_e-default.png"
                     measure.source = root.isChinese ? "qrc:/image/measure_c-default.png" : "qrc:/image/measure_e-default.png"
                 }
@@ -296,6 +383,14 @@ Rectangle {
                 // 变倍左限位已触发
             } else if ( data === "ZR\r\n" ) {
                 // 变倍右限位已触发
+            } else if ( data === "BL\r\n" ) {
+                // 明亮度左限位已触发
+            } else if ( data === "BR\r\n" ) {
+                // 明亮度右限位已触发
+            } else if ( data === "CL\r\n" ) {
+                // 对比度左限位已触发
+            } else if ( data === "CR\r\n" ) {
+                // 对比度右限位已触发
             }
 
             // 电机到达极限位置
