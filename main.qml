@@ -219,8 +219,7 @@ Rectangle {
                     id: contrast_leftArea
                     anchors.fill: parent
                     hoverEnabled: true
-                    onPressed: socket.stringData = "m"
-                    onReleased: socket.stringData = "n"
+                    onClicked: socket.stringData = "m"
                 }
             }
 
@@ -236,8 +235,7 @@ Rectangle {
                     id: contrast_rightArea
                     anchors.fill: parent
                     hoverEnabled: true
-                    onPressed: socket.stringData = "o"
-                    onReleased: socket.stringData = "p"
+                    onClicked: socket.stringData = "n"
                 }
             }
         }
@@ -255,7 +253,7 @@ Rectangle {
                 anchors.fill: parent
                 onPressed: align.source = root.isChinese ? "qrc:/image/align_c-pressed.png" : "qrc:/image/align_e-pressed.png"
                 onReleased: align.source = root.isChinese ? "qrc:/image/align_c-default.png" : "qrc:/image/align_e-default.png"
-                onClicked: socket.stringData = "q"
+                onClicked: socket.stringData = "o"
             }
         }
 
@@ -272,7 +270,7 @@ Rectangle {
                 anchors.fill: parent
                 onPressed: measure.source = root.isChinese ? "qrc:/image/measure_c-pressed.png" : "qrc:/image/measure_e-pressed.png"
                 onReleased: measure.source = root.isChinese ? "qrc:/image/measure_c-default.png" : "qrc:/image/measure_e-default.png"
-                onClicked: socket.stringData = "r"
+                onClicked: socket.stringData = "p"
             }
         }
 
