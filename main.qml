@@ -335,13 +335,11 @@ Rectangle {
             console.log("BluetoothDiscoveryModel - Found new service - deviceAddress: " + service.deviceAddress + ", deviceAddress: " +
                         service.deviceName + ", serviceName: " + service.serviceName + ", serviceUuid: " + service.serviceUuid)
 
-            if ( service.deviceAddress == "00:20:08:00:26:76" ) {
-                console.log("BluetoothDiscoveryModel - service found !")
-                serviceFound = true
-                remoteDeviceName = service.deviceName
-                socket.setService(service)
-                console.log("BluetoothDiscoveryModel - connect to service successfully !")
-            }
+            console.log("BluetoothDiscoveryModel - service found !")
+            serviceFound = true
+            remoteDeviceName = service.deviceName
+            socket.setService(service)
+            console.log("BluetoothDiscoveryModel - connect to service successfully !")
         }
 
         onDeviceDiscovered: console.log("BluetoothDiscoveryModel - New device: " + device)
@@ -381,10 +379,6 @@ Rectangle {
                 // 变倍左限位已触发
             } else if ( data === "ZR\r\n" ) {
                 // 变倍右限位已触发
-            } else if ( data === "BL\r\n" ) {
-                // 明亮度左限位已触发
-            } else if ( data === "BR\r\n" ) {
-                // 明亮度右限位已触发
             } else if ( data === "CL\r\n" ) {
                 // 对比度左限位已触发
             } else if ( data === "CR\r\n" ) {
