@@ -161,7 +161,7 @@ Rectangle {
                 width: 160*pixel; height: 60*pixel
                 anchors.top: parent.top
                 anchors.left: parent.left
-                source: zoom_leftArea.containsPress ? "qrc:/image/down-pressed.png" : "qrc:/image/down-default.png"
+                source: brightness_leftArea.containsPress ? "qrc:/image/down-pressed.png" : "qrc:/image/down-default.png"
 
                 MouseArea {
                     id: brightness_leftArea
@@ -178,7 +178,7 @@ Rectangle {
                 width: 160*pixel; height: 60*pixel
                 anchors.top: parent.top
                 anchors.right: parent.right
-                source: zoom_rightArea.containsPress ? "qrc:/image/up-pressed.png" : "qrc:/image/up-default.png"
+                source: brightness_rightArea.containsPress ? "qrc:/image/up-pressed.png" : "qrc:/image/up-default.png"
 
                 MouseArea {
                     id: brightness_rightArea
@@ -213,7 +213,7 @@ Rectangle {
                 width: 160*pixel; height: 60*pixel
                 anchors.top: parent.top
                 anchors.left: parent.left
-                source: zoom_leftArea.containsPress ? "qrc:/image/down-pressed.png" : "qrc:/image/down-default.png"
+                source: contrast_leftArea.containsPress ? "qrc:/image/down-pressed.png" : "qrc:/image/down-default.png"
 
                 MouseArea {
                     id: contrast_leftArea
@@ -229,7 +229,7 @@ Rectangle {
                 width: 160*pixel; height: 60*pixel
                 anchors.top: parent.top
                 anchors.right: parent.right
-                source: zoom_rightArea.containsPress ? "qrc:/image/up-pressed.png" : "qrc:/image/up-default.png"
+                source: contrast_rightArea.containsPress ? "qrc:/image/up-pressed.png" : "qrc:/image/up-default.png"
 
                 MouseArea {
                     id: contrast_rightArea
