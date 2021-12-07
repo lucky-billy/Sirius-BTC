@@ -38,5 +38,7 @@
         <file>image/brightness-e.png</file>
         <file>image/contrast-c.png</file>
         <file>image/contrast-e.png</file>
+        <file>image/optics-c.png</file>
+        <file>image/optics-e.png</file>
     </qresource>
 </RCC>

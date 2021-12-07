@@ -36,25 +36,25 @@ Rectangle {
 
         // 调焦
         Image {
-            width: root.isChinese ? 101*pixel : 133*pixel; height: 46*pixel
+            width: root.isChinese ? 76*pixel : 100*pixel; height: 35*pixel
             anchors.top: parent.top
-            anchors.topMargin: 120*pixel
+            anchors.topMargin: 125*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             source: root.isChinese ? "qrc:/image/focus-c.png" : "qrc:/image/focus-e.png"
         }
 
         // 调焦按钮组
         Rectangle {
-            width: 330*pixel; height: 60*pixel
+            width: 290*pixel; height: 50*pixel
             anchors.top: parent.top
-            anchors.topMargin: 170*pixel
+            anchors.topMargin: 165*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             color: "transparent"
 
             // 调焦左旋钮
             Image {
                 id: focus_left
-                width: 160*pixel; height: 60*pixel
+                width: 140*pixel; height: 50*pixel
                 anchors.top: parent.top
                 anchors.left: parent.left
                 source: focus_leftArea.containsPress ? "qrc:/image/down-pressed.png" : "qrc:/image/down-default.png"
@@ -71,7 +71,7 @@ Rectangle {
             // 调焦右旋钮
             Image {
                 id: focus_right
-                width: 160*pixel; height: 60*pixel
+                width: 140*pixel; height: 50*pixel
                 anchors.top: parent.top
                 anchors.right: parent.right
                 source: focus_rightArea.containsPress ? "qrc:/image/up-pressed.png" : "qrc:/image/up-default.png"
@@ -88,25 +88,25 @@ Rectangle {
 
         // 变倍
         Image {
-            width: root.isChinese ? 101*pixel : 128*pixel; height: 46*pixel
+            width: root.isChinese ? 77*pixel : 97*pixel; height: 35*pixel
             anchors.top: parent.top
-            anchors.topMargin: 250*pixel
+            anchors.topMargin: 230*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             source: root.isChinese ? "qrc:/image/zoom-c.png" : "qrc:/image/zoom-e.png"
         }
 
         // 变倍按钮组
         Rectangle {
-            width: 330*pixel; height: 60*pixel
+            width: 290*pixel; height: 50*pixel
             anchors.top: parent.top
-            anchors.topMargin: 300*pixel
+            anchors.topMargin: 270*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             color: "transparent"
 
             // 变倍左旋钮
             Image {
                 id: zoom_left
-                width: 160*pixel; height: 60*pixel
+                width: 140*pixel; height: 50*pixel
                 anchors.top: parent.top
                 anchors.left: parent.left
                 source: zoom_leftArea.containsPress ? "qrc:/image/down-pressed.png" : "qrc:/image/down-default.png"
@@ -123,7 +123,7 @@ Rectangle {
             // 变倍右旋钮
             Image {
                 id: zoom_right
-                width: 160*pixel; height: 60*pixel
+                width: 140*pixel; height: 50*pixel
                 anchors.top: parent.top
                 anchors.right: parent.right
                 source: zoom_rightArea.containsPress ? "qrc:/image/up-pressed.png" : "qrc:/image/up-default.png"
@@ -140,25 +140,25 @@ Rectangle {
 
         // 亮度
         Image {
-            width: root.isChinese ? 101*pixel : 252*pixel; height: 46*pixel
+            width: root.isChinese ? 77*pixel : 189*pixel; height: 35*pixel
             anchors.top: parent.top
-            anchors.topMargin: 380*pixel
+            anchors.topMargin: 335*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             source: root.isChinese ? "qrc:/image/brightness-c.png" : "qrc:/image/brightness-e.png"
         }
 
         // 亮度钮组
         Rectangle {
-            width: 330*pixel; height: 60*pixel
+            width: 290*pixel; height: 50*pixel
             anchors.top: parent.top
-            anchors.topMargin: 430*pixel
+            anchors.topMargin: 375*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             color: "transparent"
 
             // 亮度左旋钮
             Image {
                 id: brightness_left
-                width: 160*pixel; height: 60*pixel
+                width: 140*pixel; height: 50*pixel
                 anchors.top: parent.top
                 anchors.left: parent.left
                 source: brightness_leftArea.containsPress ? "qrc:/image/down-pressed.png" : "qrc:/image/down-default.png"
@@ -175,7 +175,7 @@ Rectangle {
             // 亮度右旋钮
             Image {
                 id: brightness_right
-                width: 160*pixel; height: 60*pixel
+                width: 140*pixel; height: 50*pixel
                 anchors.top: parent.top
                 anchors.right: parent.right
                 source: brightness_rightArea.containsPress ? "qrc:/image/up-pressed.png" : "qrc:/image/up-default.png"
@@ -192,25 +192,25 @@ Rectangle {
 
         // 对比度
         Image {
-            width: root.isChinese ? 139*pixel : 217*pixel; height: 46*pixel
+            width: root.isChinese ? 105*pixel : 164*pixel; height: 35*pixel
             anchors.top: parent.top
-            anchors.topMargin: 510*pixel
+            anchors.topMargin: 440*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             source: root.isChinese ? "qrc:/image/contrast-c.png" : "qrc:/image/contrast-e.png"
         }
 
         // 对比度钮组
         Rectangle {
-            width: 330*pixel; height: 60*pixel
+            width: 290*pixel; height: 50*pixel
             anchors.top: parent.top
-            anchors.topMargin: 560*pixel
+            anchors.topMargin: 480*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             color: "transparent"
 
             // 对比度左旋钮
             Image {
                 id: contrast_left
-                width: 160*pixel; height: 60*pixel
+                width: 140*pixel; height: 50*pixel
                 anchors.top: parent.top
                 anchors.left: parent.left
                 source: contrast_leftArea.containsPress ? "qrc:/image/down-pressed.png" : "qrc:/image/down-default.png"
@@ -226,7 +226,7 @@ Rectangle {
             // 对比度右旋钮
             Image {
                 id: contrast_right
-                width: 160*pixel; height: 60*pixel
+                width: 140*pixel; height: 50*pixel
                 anchors.top: parent.top
                 anchors.right: parent.right
                 source: contrast_rightArea.containsPress ? "qrc:/image/up-pressed.png" : "qrc:/image/up-default.png"
@@ -240,12 +240,62 @@ Rectangle {
             }
         }
 
+        // 双光源
+        Image {
+            width: root.isChinese ? 142*pixel : 233*pixel; height: 35*pixel
+            anchors.top: parent.top
+            anchors.topMargin: 545*pixel
+            anchors.horizontalCenter: parent.horizontalCenter
+            source: root.isChinese ? "qrc:/image/optics-c.png" : "qrc:/image/optics-e.png"
+        }
+
+        // 双光源钮组
+        Rectangle {
+            width: 290*pixel; height: 50*pixel
+            anchors.top: parent.top
+            anchors.topMargin: 585*pixel
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: "transparent"
+
+            // 双光源左旋钮
+            Image {
+                id: optics_left
+                width: 140*pixel; height: 50*pixel
+                anchors.top: parent.top
+                anchors.left: parent.left
+                source: optics_leftArea.containsPress ? "qrc:/image/down-pressed.png" : "qrc:/image/down-default.png"
+
+                MouseArea {
+                    id: optics_leftArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: socket.stringData = "o"
+                }
+            }
+
+            // 双光源右旋钮
+            Image {
+                id: optics_right
+                width: 140*pixel; height: 50*pixel
+                anchors.top: parent.top
+                anchors.right: parent.right
+                source: optics_rightArea.containsPress ? "qrc:/image/up-pressed.png" : "qrc:/image/up-default.png"
+
+                MouseArea {
+                    id: optics_rightArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: socket.stringData = "p"
+                }
+            }
+        }
+
         // 对准
         Image {
             id: align
-            width: 200*pixel; height: 60*pixel
+            width: 160*pixel; height: 50*pixel
             anchors.top: parent.top
-            anchors.topMargin: 650*pixel
+            anchors.topMargin: 660*pixel
             anchors.horizontalCenter: parent.horizontalCenter
             source: root.isChinese ? "qrc:/image/align_c-default.png" : "qrc:/image/align_e-default.png"
 
@@ -253,14 +303,14 @@ Rectangle {
                 anchors.fill: parent
                 onPressed: align.source = root.isChinese ? "qrc:/image/align_c-pressed.png" : "qrc:/image/align_e-pressed.png"
                 onReleased: align.source = root.isChinese ? "qrc:/image/align_c-default.png" : "qrc:/image/align_e-default.png"
-                onClicked: socket.stringData = "o"
+                onClicked: socket.stringData = "q"
             }
         }
 
         // 测量
         Image {
             id: measure
-            width: 200*pixel; height: 60*pixel
+            width: 160*pixel; height: 50*pixel
             anchors.top: parent.top
             anchors.topMargin: 730*pixel
             anchors.horizontalCenter: parent.horizontalCenter
@@ -270,7 +320,7 @@ Rectangle {
                 anchors.fill: parent
                 onPressed: measure.source = root.isChinese ? "qrc:/image/measure_c-pressed.png" : "qrc:/image/measure_e-pressed.png"
                 onReleased: measure.source = root.isChinese ? "qrc:/image/measure_c-default.png" : "qrc:/image/measure_e-default.png"
-                onClicked: socket.stringData = "p"
+                onClicked: socket.stringData = "r"
             }
         }
 
@@ -369,7 +419,7 @@ Rectangle {
 
         onStringDataChanged: {
             var data = socket.stringData;
-//            console.log("Received data - " + remoteDeviceName + ": " + data);
+            console.log("Received data - " + remoteDeviceName + ": " + data);
 
             if ( data === "FL\r\n" ) {
                 // 调焦左限位已触发
@@ -383,6 +433,10 @@ Rectangle {
                 // 对比度左限位已触发
             } else if ( data === "CR\r\n" ) {
                 // 对比度右限位已触发
+            } else if ( data === "LL\r\n" ) {
+                // 双光源左限位已触发
+            } else if ( data === "LR\r\n" ) {
+                // 双光源右限位已触发
             }
 
             // 电机到达极限位置
