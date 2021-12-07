@@ -419,7 +419,7 @@ Rectangle {
 
         onStringDataChanged: {
             var data = socket.stringData;
-            console.log("Received data - " + remoteDeviceName + ": " + data);
+//            console.log("Received data - " + remoteDeviceName + ": " + data);
 
             if ( data === "FL\r\n" ) {
                 // 调焦左限位已触发
@@ -449,7 +449,7 @@ Rectangle {
 
     // 设备连接中
     Rectangle {
-        width: root.width * 0.7; height: text.height*1.2;
+        width: root.width * 0.7; height: text.height*1.2
         anchors.centerIn: parent
         radius: 5
         color: "#1c56f3"
@@ -464,7 +464,7 @@ Rectangle {
         }
 
         SequentialAnimation on color {
-            ColorAnimation { easing.type: Easing.InOutSine; from: "#1c56f3"; to: "white"; duration: 1000; }
+            ColorAnimation { easing.type: Easing.InOutSine; from: "#1c56f3"; to: "white"; duration: 1000 }
             ColorAnimation { easing.type: Easing.InOutSine; to: "#1c56f3"; from: "white"; duration: 1000 }
             loops: Animation.Infinite
         }
