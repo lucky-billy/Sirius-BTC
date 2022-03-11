@@ -11,7 +11,7 @@ Rectangle {
 
     property bool isChinese: true                               // 中文或英文
     property bool serviceFound: false                           // 蓝牙是否连接成功
-    property string remoteDeviceName: ""                        // 蓝牙设备名称
+    property string deviceName: ""                              // 蓝牙设备名称
     property var pixel: Screen.desktopAvailableHeight / 840     // 像素标定值
 
     // 初始化
@@ -361,6 +361,8 @@ Rectangle {
     BluetoothDiscoveryModel {
         id: btModel
         discoveryMode: BluetoothDiscoveryModel.MinimalServiceDiscovery
+
+        // 添加过滤：蓝牙串口服务
         uuidFilter: "{00001101-0000-1000-8000-00805f9b34fb}"
 
         onRunningChanged : {
@@ -371,25 +373,26 @@ Rectangle {
         }
 
         onErrorChanged: {
-            if ( !btModel.running && btModel.error != BluetoothDiscoveryModel.NoError ) {
+            if ( !btModel.running && btModel.error !== BluetoothDiscoveryModel.NoError ) {
                 dialog.source = root.isChinese ? "qrc:/image/error_c_discovery-failed.png" : "qrc:/image/error_e_discovery-failed.png"
                 dialog.visible = true
             }
         }
 
         onServiceDiscovered: {
-            if (serviceFound) {
-                return
+            if ( !serviceFound && service.serviceUuid !== "{00000000-0000-0000-0000-000000000000}" ) {
+                console.log("BluetoothDiscoveryModel - service found !")
+                console.log("service.deviceAddress: " + service.deviceAddress)
+                console.log("service.deviceName: " + service.deviceName)
+                console.log("service.serviceName: " + service.serviceName)
+                console.log("service.serviceUuid: " + service.serviceUuid)
+                console.log("")
+
+                serviceFound = true
+                deviceName = service.deviceName
+                socket.setService(service)
+                btModel.running = false
             }
-
-            console.log("BluetoothDiscoveryModel - Found new service - deviceAddress: " + service.deviceAddress + ", deviceAddress: " +
-                        service.deviceName + ", serviceName: " + service.serviceName + ", serviceUuid: " + service.serviceUuid)
-
-            console.log("BluetoothDiscoveryModel - service found !")
-            serviceFound = true
-            remoteDeviceName = service.deviceName
-            socket.setService(service)
-            console.log("BluetoothDiscoveryModel - connect to service successfully !")
         }
 
         onDeviceDiscovered: console.log("BluetoothDiscoveryModel - New device: " + device)
@@ -419,7 +422,7 @@ Rectangle {
 
         onStringDataChanged: {
             var data = socket.stringData;
-//            console.log("Received data - " + remoteDeviceName + ": " + data);
+//            console.log("Received data - " + deviceName + ": " + data);
 
             if ( data === "FL\r\n" ) {
                 // 调焦左限位已触发
