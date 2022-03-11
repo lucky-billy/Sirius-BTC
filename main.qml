@@ -380,7 +380,7 @@ Rectangle {
         }
 
         onServiceDiscovered: {
-            if ( !serviceFound && service.serviceUuid !== "{00000000-0000-0000-0000-000000000000}" ) {
+            if ( !serviceFound ) {
                 console.log("BluetoothDiscoveryModel - service found !")
                 console.log("service.deviceAddress: " + service.deviceAddress)
                 console.log("service.deviceName: " + service.deviceName)
